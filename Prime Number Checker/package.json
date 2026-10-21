@@ -1,0 +1,17 @@
+{
+  "name": "prime_number_checker",
+  "version": "1.0.0",
+  "description": "This module is used to check if a given number is a prime number or not.",
+  "keywords": [
+    "prime",
+    "number",
+    "checker"
+  ],
+  "license": "ISC",
+  "author": "Mikhaël Amsellem",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
