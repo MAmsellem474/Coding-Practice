@@ -1,0 +1,31 @@
+import express from "express";
+import bcrypt from "bcryptjs";
+
+import { findByUsername } from "../utils/db.js";
+import { signToken } from "../utils/jwt.js";
+
+const router = express.Router();
+
+router.post("/login", async (req, res) => {
+        const { username, password } = req.body;
+        if (!username || !password){
+            return res.status(400).json({message: "Email and password are required" });
+        }
+        const user = findByUsername(username);
+        if (!user){
+            return res.status(401).json({message: "Username does not exist"});
+        }
+        const match = await bcrypt.compare(password, user.passwordHash);
+        if (!match) {
+            return res.status(401).json({ message: "Invalid password" });
+        }
+        const token = signToken({
+            id: user.id,
+            name: username,
+            role: user.role
+            });
+        return res.status(200).json({ message: "Login successful", token });
+
+});
+
+export default router;
